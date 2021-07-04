@@ -9,7 +9,7 @@ export default class UtilityService {
       },
     ];
 
-    const rooms = param.split("|").slice(0,roomConfig.maximumRoomsperGuest)
+    const rooms = param.split("|").slice(0, roomConfig.maximumRoomsperGuest);
     const guestObj = rooms
       .filter((x) => !isNaN(parseInt(x.split(":")[0])))
       .map((room) => {
@@ -19,12 +19,15 @@ export default class UtilityService {
         };
 
         const tempSplit = room.split(":");
-        roomObj.adult = parseInt(tempSplit[0]);
+        roomObj.adult =
+          parseInt(tempSplit[0]) > roomConfig.maximumRoomOccupancy
+            ? roomConfig.maximumRoomOccupancy
+            : parseInt(tempSplit[0]);
 
         if (tempSplit[1]) {
           roomObj.childrenAges = tempSplit[1]
             .split(",")
-            .slice(0,roomConfig.maximumRoomOccupancy - roomObj.adult)
+            .slice(0, roomConfig.maximumRoomOccupancy - roomObj.adult)
             .filter((x) => !isNaN(+x))
             .map((x) => {
               return +x;

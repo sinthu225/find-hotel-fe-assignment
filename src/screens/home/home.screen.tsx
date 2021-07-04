@@ -14,7 +14,7 @@ export interface IHomeSearchState {
   totalGuest: number;
 }
 
-const HomeScreen: React.FC = () => { 
+const HomeScreen: React.FC = () => {
   const initialState: IHomeSearchState = {
     searchKeyword: "",
     checkIn: null,
@@ -25,7 +25,7 @@ const HomeScreen: React.FC = () => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [roomDeatils, setRoomDeatils] = useState(null)
+  const [roomDeatils, setRoomDeatils] = useState(null);
   const guestSelectorHandler = () => {
     dispatch({
       type: actions.TOGGLE_GUEST_MODAL,
@@ -37,25 +37,28 @@ const HomeScreen: React.FC = () => {
     const queryParams = new URLSearchParams(window.location.search);
     const rooms = queryParams.get("rooms");
     if (rooms) {
-      const guestObj = UtilityService.parseURLParamsToGuestObj(decodeURIComponent(rooms));
-      setRoomDeatils(guestObj)
+      const guestObj = UtilityService.parseURLParamsToGuestObj(
+        decodeURIComponent(rooms)
+      );
+      setRoomDeatils(guestObj);
       dispatch({
         type: actions.UPDATE_GUEST_OBJ,
         payload: guestObj,
       });
-      const newParam = UtilityService.parseGuestObjToURLParam(
-        guestObj
+      const newParam = UtilityService.parseGuestObjToURLParam(guestObj);
+      window.history.replaceState("", "", `?rooms=${newParam}`);
+    } else {
+      window.history.replaceState(
+        "",
+        "",
+        `?rooms=${UtilityService.parseGuestObjToURLParam(defaultRoom)}`
       );
-      window.history.replaceState('', '', `?rooms=${newParam}`);
-
     }
   }, []);
 
   const searchHandler = (guestObj) => {
-    const newParam = UtilityService.parseGuestObjToURLParam(
-      guestObj
-    );
-    window.history.replaceState('', '', `?rooms=${newParam}`);
+    const newParam = UtilityService.parseGuestObjToURLParam(guestObj);
+    window.history.replaceState("", "", `?rooms=${newParam}`);
   };
 
   const guestPickerCloseHandler = () => {
@@ -90,7 +93,9 @@ const HomeScreen: React.FC = () => {
                     className="input-wrapper guest-picker d-flex align-items-center"
                     onClick={guestSelectorHandler}
                   >
-                    <div className="lbl" data-test='guest-number-label'>{state.totalGuest}</div>
+                    <div className="lbl" data-test="guest-number-label">
+                      {state.totalGuest}
+                    </div>
                   </div>
                 </div>
                 <button className="search-btn">Search</button>
