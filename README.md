@@ -26,3 +26,11 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ## Documentation
 
 > here you can document your decisions. ✍️
+
+The System will accept the rooms param like this [http://localhost:3000/?rooms=1:4,6|3](http://localhost:3000/?rooms=1:4,6|3)
+
+To run the cypress test 
+
+### `npm run test:e2e`
+
+

@@ -1,11 +1,9 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import UtilityService from "shared/services/utlityService";
 import { GuestPickerModal } from "./components/guestPicker";
 import { HomePageContainer } from "./home.styles";
 import { actions, reducer } from "./redux";
-// import { useHistory } from "react-router-dom";
 import { defaultRoom } from "shared/constants/constants";
-// import {browserHistory} from 'react-router';
 
 export interface IHomeSearchState {
   searchKeyword: string;
@@ -27,6 +25,7 @@ const HomeScreen: React.FC = () => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [roomDeatils, setRoomDeatils] = useState(null)
   const guestSelectorHandler = () => {
     dispatch({
       type: actions.TOGGLE_GUEST_MODAL,
@@ -38,7 +37,8 @@ const HomeScreen: React.FC = () => {
     const queryParams = new URLSearchParams(window.location.search);
     const rooms = queryParams.get("rooms");
     if (rooms) {
-      const guestObj = UtilityService.parseURLParamsToGuestObj(rooms);
+      const guestObj = UtilityService.parseURLParamsToGuestObj(decodeURIComponent(rooms));
+      setRoomDeatils(guestObj)
       dispatch({
         type: actions.UPDATE_GUEST_OBJ,
         payload: guestObj,
@@ -90,7 +90,7 @@ const HomeScreen: React.FC = () => {
                     className="input-wrapper guest-picker d-flex align-items-center"
                     onClick={guestSelectorHandler}
                   >
-                    <div className="lbl">{state.totalGuest}</div>
+                    <div className="lbl" data-test='guest-number-label'>{state.totalGuest}</div>
                   </div>
                 </div>
                 <button className="search-btn">Search</button>
@@ -107,7 +107,7 @@ const HomeScreen: React.FC = () => {
       </HomePageContainer>
       {state.showGuestModal && (
         <GuestPickerModal
-          guestDetails={state.guestDetails}
+          guestDetails={roomDeatils}
           dispatch={dispatch}
           searchHandler={searchHandler}
           closeHandler={guestPickerCloseHandler}
