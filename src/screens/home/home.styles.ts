@@ -7,6 +7,10 @@ export const HomePageContainer = styled.div`
   padding-top: 48px;
   background-repeat: no-repeat;
 
+  @media (min-width: 450px) {
+    background-size: cover;
+  }
+
   h1 {
     font-family: "Inter", sans-serif;
     font-size: 26px;
@@ -56,8 +60,6 @@ export const HomePageContainer = styled.div`
         }
       }
 
-      
-
       &.guest-picker {
         margin-left: 12px;
         width: 61px;
@@ -84,8 +86,6 @@ export const HomePageContainer = styled.div`
         }
       }
 
-      
-
       input {
         padding-left: 36px;
         border: none;
@@ -103,19 +103,18 @@ export const HomePageContainer = styled.div`
     }
 
     .check-in-checkout {
-        position: relative;
-        &::before {
-          position: absolute;
-          content: "";
-          display: block;
-          height: 12px;
-          width: 12px;
-          background-image: url("img/calendar.svg");
-          top: 13px;
-          left: 13px;
-        }
-        
+      position: relative;
+      &::before {
+        position: absolute;
+        content: "";
+        display: block;
+        height: 12px;
+        width: 12px;
+        background-image: url("img/calendar.svg");
+        top: 13px;
+        left: 13px;
       }
+    }
 
     .search-btn {
       background: #0077ff;

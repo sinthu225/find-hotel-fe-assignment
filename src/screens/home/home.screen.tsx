@@ -72,7 +72,7 @@ const HomeScreen: React.FC = () => {
     <>
       <HomePageContainer>
         <div className="container">
-          <div className="row justify-content-end">
+          <div className="row justify-content-md-center">
             <div className="col-md-6">
               <h1>Find the perfect deal, always. </h1>
               <div className="search-container">
