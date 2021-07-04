@@ -84,7 +84,7 @@ context(`Guest Selector Add Room Functions `, () => {
   });
 });
 
-context.only(`Guest Selector Add Room with children Functions `, () => {
+context(`Guest Selector Add Room with children Functions `, () => {
   before(() => {
     cy.visit(`/?rooms=1:4,6|3`);
   });
