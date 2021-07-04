@@ -25,7 +25,6 @@ const HomeScreen: React.FC = () => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [roomDeatils, setRoomDeatils] = useState(null);
   const guestSelectorHandler = () => {
     dispatch({
       type: actions.TOGGLE_GUEST_MODAL,
@@ -40,7 +39,6 @@ const HomeScreen: React.FC = () => {
       const guestObj = UtilityService.parseURLParamsToGuestObj(
         decodeURIComponent(rooms)
       );
-      setRoomDeatils(guestObj);
       dispatch({
         type: actions.UPDATE_GUEST_OBJ,
         payload: guestObj,
@@ -112,7 +110,7 @@ const HomeScreen: React.FC = () => {
       </HomePageContainer>
       {state.showGuestModal && (
         <GuestPickerModal
-          guestDetails={roomDeatils}
+          guestDetails={state.guestDetails}
           dispatch={dispatch}
           searchHandler={searchHandler}
           closeHandler={guestPickerCloseHandler}
